@@ -1,7 +1,10 @@
 from datetime import datetime
 from typing import List, Dict, Any
 
-def filter_by_state(data: List[Dict[str, Any]], state: str = 'EXECUTED') -> List[Dict[str, Any]]:
+
+def filter_by_state(
+    data: List[Dict[str, Any]], state: str = "EXECUTED"
+) -> List[Dict[str, Any]]:
     """
     Фильтрует список словарей по значению ключа 'state'.
 
@@ -12,10 +15,12 @@ def filter_by_state(data: List[Dict[str, Any]], state: str = 'EXECUTED') -> List
     Возвращает:
         Новый список словарей, где 'state' совпадает с указанным значением.
     """
-    return [item for item in data if item.get('state') == state]
+    return [item for item in data if item.get("state") == state]
 
 
-def sort_by_date(data: List[Dict[str, Any]], reverse: bool = True) -> List[Dict[str, Any]]:
+def sort_by_date(
+    data: List[Dict[str, Any]], reverse: bool = True
+) -> List[Dict[str, Any]]:
     """
     Сортирует список словарей по дате (ключ 'date') в указанном порядке.
 
@@ -28,12 +33,8 @@ def sort_by_date(data: List[Dict[str, Any]], reverse: bool = True) -> List[Dict[
     Возвращает:
         Новый отсортированный список словарей.
     """
+
     def parse_date(date_str: str) -> datetime:
         return datetime.fromisoformat(date_str)
 
-
-    return sorted(
-        data,
-        key=lambda item: parse_date(item['date']),
-        reverse=reverse
-    )
+    return sorted(data, key=lambda item: parse_date(item["date"]), reverse=reverse)
