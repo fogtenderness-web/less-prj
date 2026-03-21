@@ -4,15 +4,25 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6217256a-b937-44fc-a0b7-f9881f74bfdf" name="Changes" comment="Добавлен README.md">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="6217256a-b937-44fc-a0b7-f9881f74bfdf" name="Changes" comment="homework is done" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="feature/homework_10_1" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -21,12 +31,12 @@
     &quot;assignee&quot;: &quot;fogtenderness-web&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/fogtenderness-web/less-prj.git",
-    "accountId": "39bcccbb-4f1b-46df-ad69-5f5641ea6867"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/fogtenderness-web/less-prj.git&quot;,
+    &quot;accountId&quot;: &quot;39bcccbb-4f1b-46df-ad69-5f5641ea6867&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 1
 }</component>
@@ -38,13 +48,13 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;configurable.group.appearance&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "develop",
+    "settings.editor.selected.configurable": "configurable.group.appearance"
   }
-}</component>
+}]]></component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -85,7 +95,55 @@
       <option name="project" value="LOCAL" />
       <updated>1774065118190</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Добавлены линтеры flake8, isort и black">
+      <option name="closed" value="true" />
+      <created>1774066025836</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1774066025836</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Добавлены линтеры flake8, isort и black">
+      <option name="closed" value="true" />
+      <created>1774066033601</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1774066033601</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Добавлен линтер mypy">
+      <option name="closed" value="true" />
+      <created>1774066170087</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1774066170087</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Добавлен линтер mypy">
+      <option name="closed" value="true" />
+      <created>1774066834956</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1774066834956</updated>
+    </task>
+    <task id="LOCAL-00008" summary="commit n push">
+      <option name="closed" value="true" />
+      <created>1774068511837</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1774068511837</updated>
+    </task>
+    <task id="LOCAL-00009" summary="homework is done">
+      <option name="closed" value="true" />
+      <created>1774068910823</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1774068910823</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -114,6 +172,10 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Создан проект, описаны функции обработки данных" />
     <MESSAGE value="Добавлен README.md" />
-    <option name="LAST_COMMIT_MESSAGE" value="Добавлен README.md" />
+    <MESSAGE value="Добавлены линтеры flake8, isort и black" />
+    <MESSAGE value="Добавлен линтер mypy" />
+    <MESSAGE value="commit n push" />
+    <MESSAGE value="homework is done" />
+    <option name="LAST_COMMIT_MESSAGE" value="homework is done" />
   </component>
 </project>
