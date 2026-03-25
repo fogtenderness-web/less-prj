@@ -24,7 +24,7 @@ def mask_account_card(input_string: str) -> str:
 
     is_card = any(
         keyword in input_lower
-        for keyword in ['visa', 'mastercard', 'maestro', 'mir']
+        for keyword in ['visa', 'mastercard', 'maestro', 'mir', 'мир']
     )
     is_account = 'счёт' in input_lower or 'account' in input_lower
 
