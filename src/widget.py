@@ -5,7 +5,7 @@ def get_date(date_string: str) -> str:
     """
     Преобразует строку с датой в формат ДД.ММ.ГГГГ.
     """
-    date_obj = datetime.strptime(date_string, "%Y-%m-%dT%H:%M:%S.%f")
+    date_obj = datetime.fromisoformat(date_string)
     return date_obj.strftime("%d.%m.%Y")
 
 
