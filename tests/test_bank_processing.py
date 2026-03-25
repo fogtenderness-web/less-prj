@@ -212,5 +212,5 @@ class TestEdgeCases:
 
     def test_get_card_number_with_non_digits(self):
         """Номер карты с нецифровыми символами"""
-        result = get_mask_card_number("12a4 56b8 90c2 34d6")
-        assert result == "1246 56** **** 3456"
+        result = get_mask_card_number("12a34 56b78 90c12 34d56")
+        assert result == "1234 56** **** 3456"
