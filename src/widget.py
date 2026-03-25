@@ -26,7 +26,7 @@ def mask_account_card(input_string: str) -> str:
         keyword in input_lower
         for keyword in ['visa', 'mastercard', 'maestro', 'mir', 'мир']
     )
-    is_account = 'счёт' in input_lower or 'account' in input_lower
+    is_account = 'счёт' in input_lower or 'счет' in input_lower or 'account' in input_lower
 
     # Проверяем, что распознан ровно один тип
     if not (is_card or is_account):
