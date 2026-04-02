@@ -1,2 +1,2 @@
-def new_changes():
-pass
+def test_dummy():
+    pass
