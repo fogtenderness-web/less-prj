@@ -3,6 +3,7 @@ conftest.py - централизованное хранилище фикстур
 - masks.py
 - widget.py
 - processing.py
+-generators.py
 """
 
 import pytest
@@ -104,4 +105,52 @@ def dates():
         ("2019-07-03T18:35:29.512364", "03.07.2019"),
         ("2021-02-20T14:30:45", "20.02.2021"),
         ("2023-12-25T10:00:00", "25.12.2023"),
+    ]
+
+# ========================
+# generators.py
+# ========================
+
+@pytest.fixture
+def sample_transactions_for_generators():
+    """Список транзакций для тестирования filter_by_currency и transaction_descriptions"""
+    return [
+        {
+            "id": 939719570,
+            "description": "Перевод организации",
+            "operationAmount": {"amount": "9824.07", "currency": {"code": "USD"}}
+        },
+        {
+            "id": 142264268,
+            "description": "Перевод со счета на счет",
+            "operationAmount": {"amount": "79114.93", "currency": {"code": "USD"}}
+        },
+        {
+            "id": 873106923,
+            "description": "Перевод со счета на счет",
+            "operationAmount": {"amount": "43318.34", "currency": {"code": "EUR"}}
+        },
+        {
+            "id": 594226727,
+            "description": "Перевод организации",
+            "operationAmount": {"amount": "67314.70", "currency": {"code": "RUB"}}
+        },
+        {
+            "id": 615064591,
+            "description": "Перевод с карты на карту",
+            "operationAmount": {"amount": "77751.04", "currency": {"code": "USD"}}
+        }
+    ]
+
+@pytest.fixture
+def empty_transactions():
+    return []
+
+@pytest.fixture
+def transactions_without_currency():
+    """Транзакции с некорректной структурой валюты"""
+    return [
+        {"id": 1, "description": "Нет валюты", "operationAmount": {"amount": "100"}},
+        {"id": 2, "description": "Нет operationAmount"},
+        {"id": 3, "operationAmount": {"currency": "USD"}}
     ]
