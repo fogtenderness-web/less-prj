@@ -154,3 +154,12 @@ def transactions_without_currency():
         {"id": 2, "description": "Нет operationAmount"},
         {"id": 3, "operationAmount": {"currency": "USD"}}
     ]
+@pytest.fixture
+def temp_log_file():
+    """Создаёт временный файл для логов и удаляет после теста"""
+    import tempfile
+    fd, path = tempfile.mkstemp(suffix=".log")
+    os.close(fd)
+    yield path
+    if os.path.exists(path):
+        os.remove(path)
