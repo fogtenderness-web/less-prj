@@ -24,3 +24,19 @@ def load_transactions(file_path: str) -> List[Dict[str, Any]]:
         return []
 
     return data
+
+def get_transaction_amount_in_rub(transaction: Dict[str, Any]) -> float:
+    try:
+        amount = float(transaction.get("operationAmount", {}).get("amount", 0))
+    except (ValueError, TypeError):
+        amount = 0.0
+
+    currency = transaction.get("operationAmount", {}).get("currency", {}).get("code", "RUB")
+
+    if currency == "RUB":
+        return amount
+    if currency not in ("USD", "EUR"):
+        return 0.0
+
+    from src.external_api import convert_currency
+    return convert_currency(amount, currency, "RUB")
