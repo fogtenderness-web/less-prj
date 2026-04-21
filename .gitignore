@@ -8,6 +8,7 @@ __pycache__/
 
 # Distribution / packaging
 .Python
+data/
 build/
 develop-eggs/
 dist/
@@ -217,3 +218,4 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml.idea/
+
