@@ -68,4 +68,3 @@ pip install pytest pytest-cov
 **Запуск**
 
 pytest tests/ -v
-pytest tests/ --cov=src --cov-report=term-missing
