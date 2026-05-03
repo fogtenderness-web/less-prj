@@ -34,6 +34,7 @@ def get_mask_card_number(card_number: str) -> str:
 
     # Проверяем длину номера карты (стандартно 16 цифр)
     if len(digits) != 16:
+        logger.error(f"Некорректная длина: {len(digits)} цифр")
         raise ValueError("Номер карты должен содержать 16 цифр")
 
     # Формируем маску: первые 6 цифр + 6 звёздочек + последние 4 цифры
@@ -45,7 +46,7 @@ def get_mask_card_number(card_number: str) -> str:
 
     # Разбиваем на блоки по 4 символа с пробелами
     formatted = " ".join(masked[i : i + 4] for i in range(0, 16, 4))
-
+    logger.info(f"Результат: {formatted}")
     return formatted
 
 
@@ -61,7 +62,8 @@ def get_mask_account(account_number: str) -> str:
 
     # Проверяем длину номера счёта (стандартно 20 цифр)
     if len(digits) != 20:
+        logger.error(f"Некорректная длина: {len(digits)} цифр")
         raise ValueError("Номер счёта должен содержать 20 цифр")
-
+    logger.info(f"Результат: {result}")
     # Заменяем цифры, кроме последних 4, на две звёздочки
     return f'**{digits[-4:]}'
