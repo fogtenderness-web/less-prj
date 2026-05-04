@@ -7,7 +7,10 @@ load_dotenv()
 API_KEY = os.getenv("API_KEY")
 BASE_URL = "https://api.exchangeratesapi.io/v1/latest"
 
-def convert_currency(amount: float, from_currency: str, to_currency: str = "RUB") -> float:
+
+def convert_currency(
+    amount: float, from_currency: str, to_currency: str = "RUB"
+) -> float:
     if from_currency == to_currency:
         return amount
     if not API_KEY:
@@ -19,7 +22,9 @@ def convert_currency(amount: float, from_currency: str, to_currency: str = "RUB"
         response.raise_for_status()
         data = response.json()
         if not data.get("success"):
-            raise ValueError(f"API error: {data.get('error', {}).get('info', 'Unknown')}")
+            raise ValueError(
+                f"API error: {data.get('error', {}).get('info', 'Unknown')}"
+            )
         rate = data.get("rates", {}).get(to_currency)
         if rate is None:
             raise ValueError(f"Rate for {to_currency} not found")

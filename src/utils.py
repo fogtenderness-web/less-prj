@@ -9,9 +9,12 @@ log_dir.mkdir(exist_ok=True)
 logger = logging.getLogger("utils")
 logger.setLevel(logging.INFO)
 
-formatter = logging.Formatter('%(asctime)s | %(name)s | %(levelname)-8s | %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
+formatter = logging.Formatter(
+    "%(asctime)s | %(name)s | %(levelname)-8s | %(message)s",
+    datefmt="%Y-%m-%d %H:%M:%S",
+)
 
-file_handler = logging.FileHandler(log_dir / "utils.log", mode='w', encoding='utf-8')
+file_handler = logging.FileHandler(log_dir / "utils.log", mode="w", encoding="utf-8")
 file_handler.setFormatter(formatter)
 logger.addHandler(file_handler)
 
@@ -34,9 +37,9 @@ def load_transactions(file_path: str) -> List[Dict[str, Any]]:
         return []
 
     try:
-        with open(path, 'r', encoding='utf-8') as f:
+        with open(path, "r", encoding="utf-8") as f:
             data = json.load(f)
-    except (json.JSONDecodeError, IOError):
+    except json.JSONDecodeError, IOError:
         logger.error(f"Ошибка чтения: {e}")
         return []
 
@@ -46,16 +49,19 @@ def load_transactions(file_path: str) -> List[Dict[str, Any]]:
     logger.info(f"Загружено {len(data)} транзакций")
     return data
 
+
 def get_transaction_amount_in_rub(transaction: Dict[str, Any]) -> float:
     tx_id = transaction.get("id", "unknown")
     logger.info(f"Обработка транзакции {tx_id}")
     try:
         amount = float(transaction.get("operationAmount", {}).get("amount", 0))
-    except (ValueError, TypeError):
+    except ValueError, TypeError:
         logger.error(f"Некорректная сумма в транзакции {tx_id}")
         amount = 0.0
 
-    currency = transaction.get("operationAmount", {}).get("currency", {}).get("code", "RUB")
+    currency = (
+        transaction.get("operationAmount", {}).get("currency", {}).get("code", "RUB")
+    )
 
     if currency == "RUB":
         logger.info(f"Транзакция {tx_id} в рублях, сумма {amount}")
@@ -66,6 +72,7 @@ def get_transaction_amount_in_rub(transaction: Dict[str, Any]) -> float:
     logger.info(f"Конвертация {amount} {currency} для транзакции {tx_id}")
 
     from src.external_api import convert_currency
+
     try:
         result = convert_currency(amount, currency, "RUB")
         logger.info(f"Результат конвертации: {result} RUB")

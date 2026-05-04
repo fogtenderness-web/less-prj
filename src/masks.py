@@ -9,10 +9,13 @@ logger = logging.getLogger("masks")
 logger.setLevel(logging.INFO)
 
 # Формат для файла и консоли (единый)
-formatter = logging.Formatter('%(asctime)s | %(name)s | %(levelname)-8s | %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
+formatter = logging.Formatter(
+    "%(asctime)s | %(name)s | %(levelname)-8s | %(message)s",
+    datefmt="%Y-%m-%d %H:%M:%S",
+)
 
 # Вывод в файл (перезапись)
-file_handler = logging.FileHandler(log_dir / "masks.log", mode='w', encoding='utf-8')
+file_handler = logging.FileHandler(log_dir / "masks.log", mode="w", encoding="utf-8")
 file_handler.setFormatter(formatter)
 logger.addHandler(file_handler)
 
@@ -66,4 +69,4 @@ def get_mask_account(account_number: str) -> str:
         raise ValueError("Номер счёта должен содержать 20 цифр")
     logger.info(f"Результат: {result}")
     # Заменяем цифры, кроме последних 4, на две звёздочки
-    return f'**{digits[-4:]}'
+    return f"**{digits[-4:]}"

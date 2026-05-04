@@ -1,14 +1,19 @@
 from typing import List, Dict, Any, Iterator
 
 
-def filter_by_currency(transactions: List[Dict[str, Any]], currency: str = "USD") -> Iterator[Dict[str, Any]]:
+def filter_by_currency(
+    transactions: List[Dict[str, Any]], currency: str = "USD"
+) -> Iterator[Dict[str, Any]]:
     """
     Принимает список транзакций и возвращает итератор,
     который выдает транзакции с указанной валютой (поле operationAmount.currency.code).
     """
     for transaction in transactions:
         try:
-            if transaction.get("operationAmount", {}).get("currency", {}).get("code") == currency:
+            if (
+                transaction.get("operationAmount", {}).get("currency", {}).get("code")
+                == currency
+            ):
                 yield transaction
         except AttributeError:
             continue
@@ -35,5 +40,5 @@ def card_number_generator(start: int, end: int) -> Iterator[str]:
     """
     for number in range(start, end + 1):
         card_str = f"{number:016d}"
-        formatted = " ".join(card_str[i:i+4] for i in range(0, 16, 4))
+        formatted = " ".join(card_str[i : i + 4] for i in range(0, 16, 4))
         yield formatted
