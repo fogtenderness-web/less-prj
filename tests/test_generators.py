@@ -1,5 +1,10 @@
 import pytest
-from src.generators import filter_by_currency, transaction_descriptions, card_number_generator
+from src.generators import (
+    filter_by_currency,
+    transaction_descriptions,
+    card_number_generator,
+)
+
 
 class TestFilterByCurrency:
     """Тестирование filter_by_currency"""
@@ -47,6 +52,7 @@ class TestFilterByCurrency:
         with pytest.raises(StopIteration):
             next(gen)
 
+
 class TestTransactionDescriptions:
     """Тестирование transaction_descriptions"""
 
@@ -58,7 +64,7 @@ class TestTransactionDescriptions:
             "Перевод со счета на счет",
             "Перевод со счета на счет",
             "Перевод организации",
-            "Перевод с карты на карту"
+            "Перевод с карты на карту",
         ]
         assert list(gen) == expected
 
@@ -68,7 +74,7 @@ class TestTransactionDescriptions:
             {"id": 1, "description": "Есть"},
             {"id": 2},
             {"id": 3, "description": None},
-            {"id": 4, "description": "Тоже есть"}
+            {"id": 4, "description": "Тоже есть"},
         ]
         gen = transaction_descriptions(transactions)
         assert list(gen) == ["Есть", "Тоже есть"]
@@ -92,14 +98,18 @@ class TestTransactionDescriptions:
         with pytest.raises(StopIteration):
             next(gen)
 
+
 class TestCardNumberGenerator:
     """Тестирование card_number_generator"""
 
     def test_range_1_to_5(self):
         gen = card_number_generator(1, 5)
         expected = [
-            "0000 0000 0000 0001", "0000 0000 0000 0002", "0000 0000 0000 0003",
-            "0000 0000 0000 0004", "0000 0000 0000 0005"
+            "0000 0000 0000 0001",
+            "0000 0000 0000 0002",
+            "0000 0000 0000 0003",
+            "0000 0000 0000 0004",
+            "0000 0000 0000 0005",
         ]
         assert list(gen) == expected
 
@@ -128,7 +138,7 @@ class TestCardNumberGenerator:
         assert list(gen) == [
             "0000 0000 0000 0001",
             "0000 0000 0000 0002",
-            "0000 0000 0000 0003"
+            "0000 0000 0000 0003",
         ]
 
     def test_exhaustion(self):

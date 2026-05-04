@@ -2,6 +2,7 @@ import pytest
 from unittest.mock import patch, Mock
 from src.external_api import convert_currency
 
+
 class TestConvertCurrency:
     @patch("src.external_api.API_KEY", "fake_key")
     @patch("src.external_api.requests.get")
@@ -47,7 +48,10 @@ class TestConvertCurrency:
     def test_api_unsuccessful_response(self, mock_get):
         """API вернул success=False"""
         mock_response = Mock()
-        mock_response.json.return_value = {"success": False, "error": {"info": "Invalid API key"}}
+        mock_response.json.return_value = {
+            "success": False,
+            "error": {"info": "Invalid API key"},
+        }
         mock_get.return_value = mock_response
         with pytest.raises(ValueError, match="API error: Invalid API key"):
             convert_currency(10, "USD", "RUB")

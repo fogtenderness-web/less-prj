@@ -42,7 +42,10 @@ class TestLogDecorator:
             error_func(10, 20)
         captured = capsys.readouterr()
         assert "Вызов функции error_func с аргументами (10, 20)" in captured.out
-        assert "Функция error_func завершилась ошибкой ValueError. Входные параметры: (10, 20)" in captured.out
+        assert (
+            "Функция error_func завершилась ошибкой ValueError. Входные параметры: (10, 20)"
+            in captured.out
+        )
 
     def test_log_to_file_success(self):
         """Успешный вызов – логи в файл"""
@@ -55,7 +58,7 @@ class TestLogDecorator:
         assert result == 12
 
         # Проверяем содержимое файла
-        with open(test_file, 'r', encoding='utf-8') as f:
+        with open(test_file, "r", encoding="utf-8") as f:
             content = f.read()
         assert "Вызов функции success_with_file с аргументами (4, 3)" in content
         assert "Функция success_with_file завершилась успешно. Результат: 12" in content
@@ -72,10 +75,13 @@ class TestLogDecorator:
         with pytest.raises(RuntimeError, match="Something wrong"):
             error_with_file(42)
 
-        with open(test_file, 'r', encoding='utf-8') as f:
+        with open(test_file, "r", encoding="utf-8") as f:
             content = f.read()
         assert "Вызов функции error_with_file с аргументами (42)" in content
-        assert "Функция error_with_file завершилась ошибкой RuntimeError. Входные параметры: (42)" in content
+        assert (
+            "Функция error_with_file завершилась ошибкой RuntimeError. Входные параметры: (42)"
+            in content
+        )
 
         os.remove(test_file)
 
@@ -92,7 +98,7 @@ class TestLogDecorator:
         add(1, 2)
         add(3, 4)
 
-        with open(test_file, 'r', encoding='utf-8') as f:
+        with open(test_file, "r", encoding="utf-8") as f:
             lines = f.read().splitlines()
         assert len(lines) == 4  # 2 вызова * 2 строки (начало + конец)
         assert "Вызов функции add с аргументами (1, 2)" in lines[0]
@@ -104,6 +110,7 @@ class TestLogDecorator:
 
     def test_args_and_kwargs(self, capsys):
         """Передача именованных аргументов"""
+
         @log()
         def greet(name, greeting="Hello"):
             return f"{greeting}, {name}!"
@@ -111,11 +118,14 @@ class TestLogDecorator:
         result = greet("Alice", greeting="Hi")
         assert result == "Hi, Alice!"
         captured = capsys.readouterr()
-        assert "Вызов функции greet с аргументами ('Alice', greeting='Hi')" in captured.out
+        assert (
+            "Вызов функции greet с аргументами ('Alice', greeting='Hi')" in captured.out
+        )
         assert "Результат: 'Hi, Alice!'" in captured.out
 
     def test_no_filename_and_exception_raised(self, capsys):
         """Исключение пробрасывается, логирование ошибки в консоль"""
+
         @log()
         def divide(a, b):
             return a / b
@@ -124,4 +134,7 @@ class TestLogDecorator:
             divide(5, 0)
         captured = capsys.readouterr()
         assert "Вызов функции divide с аргументами (5, 0)" in captured.out
-        assert "Функция divide завершилась ошибкой ZeroDivisionError. Входные параметры: (5, 0)" in captured.out
+        assert (
+            "Функция divide завершилась ошибкой ZeroDivisionError. Входные параметры: (5, 0)"
+            in captured.out
+        )

@@ -3,10 +3,10 @@ from src.masks import get_mask_card_number, get_mask_account
 from src.widget import mask_account_card, get_date
 from src.processing import filter_by_state, sort_by_date
 
-
 # ========================
 # Тесты для processing.py
 # ========================
+
 
 class TestProcessing:
     """Тесты фильтрации и сортировки транзакций"""
@@ -81,14 +81,18 @@ class TestProcessing:
 # Тесты для masks.py
 # ========================
 
+
 class TestMasks:
     """Тесты маскировки номеров карт и счетов"""
 
-    @pytest.mark.parametrize("card_input, expected", [
-        ("1234 5678 9012 3456", "1234 56** **** 3456"),
-        ("1234567890123456", "1234 56** **** 3456"),
-        ("1234-5678-9012-3456", "1234 56** **** 3456"),
-    ])
+    @pytest.mark.parametrize(
+        "card_input, expected",
+        [
+            ("1234 5678 9012 3456", "1234 56** **** 3456"),
+            ("1234567890123456", "1234 56** **** 3456"),
+            ("1234-5678-9012-3456", "1234 56** **** 3456"),
+        ],
+    )
     def test_get_mask_card_number_valid(self, card_input, expected):
         """Тест маскировки валидных номеров карт"""
         assert get_mask_card_number(card_input) == expected
@@ -98,10 +102,13 @@ class TestMasks:
         with pytest.raises(ValueError, match="Номер карты должен содержать 16 цифр"):
             get_mask_card_number("123456789012345")
 
-    @pytest.mark.parametrize("account_input, expected", [
-        ("1234 5678 9012 3456 7890", "**7890"),
-        ("12345678901234567890", "**7890"),
-    ])
+    @pytest.mark.parametrize(
+        "account_input, expected",
+        [
+            ("1234 5678 9012 3456 7890", "**7890"),
+            ("12345678901234567890", "**7890"),
+        ],
+    )
     def test_get_mask_account_valid(self, account_input, expected):
         """Тест маскировки валидных номеров счетов"""
         assert get_mask_account(account_input) == expected
@@ -116,44 +123,57 @@ class TestMasks:
 # Тесты для widget.py
 # ========================
 
+
 class TestWidget:
     """Тесты расширенных функций виджета"""
 
-    @pytest.mark.parametrize("card_input, expected", [
-        ("Visa 1234567812345678", "Visa 1234 56** **** 5678"),
-        ("MasterCard 1234567812345678", "MasterCard 1234 56** **** 5678"),
-        ("Maestro 1234567812345678", "Maestro 1234 56** **** 5678"),
-        ("Мир 1234567812345678", "Мир 1234 56** **** 5678"),
-    ])
+    @pytest.mark.parametrize(
+        "card_input, expected",
+        [
+            ("Visa 1234567812345678", "Visa 1234 56** **** 5678"),
+            ("MasterCard 1234567812345678", "MasterCard 1234 56** **** 5678"),
+            ("Maestro 1234567812345678", "Maestro 1234 56** **** 5678"),
+            ("Мир 1234567812345678", "Мир 1234 56** **** 5678"),
+        ],
+    )
     def test_mask_account_card_card(self, card_input, expected):
         """Тест маскировки карт с автоматическим определением типа"""
         assert mask_account_card(card_input) == expected
 
-    @pytest.mark.parametrize("account_input, expected", [
-        ("Счет 12345678901234567890", "Счет **7890"),
-        ("Account 12345678901234567890", "Account **7890"),
-    ])
+    @pytest.mark.parametrize(
+        "account_input, expected",
+        [
+            ("Счет 12345678901234567890", "Счет **7890"),
+            ("Account 12345678901234567890", "Account **7890"),
+        ],
+    )
     def test_mask_account_card_account(self, account_input, expected):
         """Тест маскировки счетов с автоматическим определением типа"""
         assert mask_account_card(account_input) == expected
 
-    @pytest.mark.parametrize("invalid_input, error_msg", [
-        ("Visa 123456789012345", "Номер карты должен содержать 16 цифр"),
-        ("Счет 1234567890123456789", "Номер счёта должен содержать 20 цифр"),
-        ("Visa Счет 1234567812345678", "неоднозначный ввод"),
-        ("Unknown 1234567812345678", "Не удалось определить тип"),
-        ("Visa Platinum", "не найден номер"),
-    ])
+    @pytest.mark.parametrize(
+        "invalid_input, error_msg",
+        [
+            ("Visa 123456789012345", "Номер карты должен содержать 16 цифр"),
+            ("Счет 1234567890123456789", "Номер счёта должен содержать 20 цифр"),
+            ("Visa Счет 1234567812345678", "неоднозначный ввод"),
+            ("Unknown 1234567812345678", "Не удалось определить тип"),
+            ("Visa Platinum", "не найден номер"),
+        ],
+    )
     def test_mask_account_card_invalid(self, invalid_input, error_msg):
         """Тест обработки некорректных входных данных"""
         with pytest.raises(ValueError, match=error_msg):
             mask_account_card(invalid_input)
 
-    @pytest.mark.parametrize("date_input, expected", [
-        ("2019-07-03T18:35:29.512364", "03.07.2019"),
-        ("2021-02-20T14:30:45", "20.02.2021"),
-        ("2023-12-25T10:00:00", "25.12.2023"),
-    ])
+    @pytest.mark.parametrize(
+        "date_input, expected",
+        [
+            ("2019-07-03T18:35:29.512364", "03.07.2019"),
+            ("2021-02-20T14:30:45", "20.02.2021"),
+            ("2023-12-25T10:00:00", "25.12.2023"),
+        ],
+    )
     def test_get_date_valid(self, date_input, expected):
         """Тест преобразования валидных дат"""
         assert get_date(date_input) == expected
@@ -167,6 +187,7 @@ class TestWidget:
 # ========================
 # Тесты для покрытия дополнительных ветвей кода
 # ========================
+
 
 class TestEdgeCases:
     """Тесты граничных случаев"""

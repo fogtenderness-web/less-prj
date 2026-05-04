@@ -8,10 +8,10 @@ conftest.py - централизованное хранилище фикстур
 
 import pytest
 
-
 # ========================
 # processing.py
 # ========================
+
 
 @pytest.fixture
 def transactions():
@@ -43,6 +43,7 @@ def no_state_list():
 # masks.py
 # ========================
 
+
 @pytest.fixture
 def card_numbers():
     """Валидные номера карт (вход -> результат)"""
@@ -65,6 +66,7 @@ def account_numbers():
 # ========================
 # widget.py
 # ========================
+
 
 @pytest.fixture
 def card_data():
@@ -107,9 +109,11 @@ def dates():
         ("2023-12-25T10:00:00", "25.12.2023"),
     ]
 
+
 # ========================
 # generators.py
 # ========================
+
 
 @pytest.fixture
 def sample_transactions_for_generators():
@@ -118,33 +122,35 @@ def sample_transactions_for_generators():
         {
             "id": 939719570,
             "description": "Перевод организации",
-            "operationAmount": {"amount": "9824.07", "currency": {"code": "USD"}}
+            "operationAmount": {"amount": "9824.07", "currency": {"code": "USD"}},
         },
         {
             "id": 142264268,
             "description": "Перевод со счета на счет",
-            "operationAmount": {"amount": "79114.93", "currency": {"code": "USD"}}
+            "operationAmount": {"amount": "79114.93", "currency": {"code": "USD"}},
         },
         {
             "id": 873106923,
             "description": "Перевод со счета на счет",
-            "operationAmount": {"amount": "43318.34", "currency": {"code": "EUR"}}
+            "operationAmount": {"amount": "43318.34", "currency": {"code": "EUR"}},
         },
         {
             "id": 594226727,
             "description": "Перевод организации",
-            "operationAmount": {"amount": "67314.70", "currency": {"code": "RUB"}}
+            "operationAmount": {"amount": "67314.70", "currency": {"code": "RUB"}},
         },
         {
             "id": 615064591,
             "description": "Перевод с карты на карту",
-            "operationAmount": {"amount": "77751.04", "currency": {"code": "USD"}}
-        }
+            "operationAmount": {"amount": "77751.04", "currency": {"code": "USD"}},
+        },
     ]
+
 
 @pytest.fixture
 def empty_transactions():
     return []
+
 
 @pytest.fixture
 def transactions_without_currency():
@@ -152,12 +158,15 @@ def transactions_without_currency():
     return [
         {"id": 1, "description": "Нет валюты", "operationAmount": {"amount": "100"}},
         {"id": 2, "description": "Нет operationAmount"},
-        {"id": 3, "operationAmount": {"currency": "USD"}}
+        {"id": 3, "operationAmount": {"currency": "USD"}},
     ]
+
+
 @pytest.fixture
 def temp_log_file():
     """Создаёт временный файл для логов и удаляет после теста"""
     import tempfile
+
     fd, path = tempfile.mkstemp(suffix=".log")
     os.close(fd)
     yield path
