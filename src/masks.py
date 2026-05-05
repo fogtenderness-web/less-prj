@@ -68,6 +68,6 @@ def get_mask_account(account_number: str) -> str:
         logger.error(f"Некорректная длина: {len(digits)} цифр")
         raise ValueError("Номер счёта должен содержать 20 цифр")
     # Заменяем цифры, кроме последних 4, на две звёздочки
-    return f"**{digits[-4:]}"
+    result = f'**{digits[-4:]}'
     logger.info(f"Результат: {result}")
     return result

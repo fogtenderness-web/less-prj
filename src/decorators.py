@@ -1,6 +1,5 @@
 import functools
 from typing import Optional, Any, Callable
-import traceback
 
 
 def log(filename: Optional[str] = None) -> Callable:
@@ -37,7 +36,10 @@ def log(filename: Optional[str] = None) -> Callable:
                     print(end_msg)
                 return result
             except Exception as e:
-                error_msg = f"Функция {func_name} завершилась ошибкой {type(e).__name__}. Входные параметры: ({all_args})"
+                error_msg = (
+                    f"Функция {func_name} завершилась ошибкой {type(e).__name__}. "
+                    f"Входные параметры: ({all_args})"
+                )
                 if filename:
                     with open(filename, "a", encoding="utf-8") as f:
                         f.write(error_msg + "\n")

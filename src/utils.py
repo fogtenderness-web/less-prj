@@ -46,10 +46,12 @@ def get_transaction_amount_in_rub(transaction: Dict[str, Any]) -> float:
     logger.info(f"Обработка транзакции {tx_id}")
     try:
         amount = float(transaction.get("operationAmount", {}).get("amount", 0))
-    except (ValueError, TypeError):
+    except ValueError, TypeError:
         logger.error(f"Некорректная сумма в транзакции {tx_id}")
         amount = 0.0
-    currency = transaction.get("operationAmount", {}).get("currency", {}).get("code", "RUB")
+    currency = (
+        transaction.get("operationAmount", {}).get("currency", {}).get("code", "RUB")
+    )
     if currency == "RUB":
         logger.info(f"Транзакция {tx_id} в рублях, сумма {amount}")
         return amount
@@ -62,6 +64,7 @@ def get_transaction_amount_in_rub(transaction: Dict[str, Any]) -> float:
         return 0.0
     logger.info(f"Конвертация {amount} {currency} для транзакции {tx_id}")
     from src.external_api import convert_currency
+
     try:
         result = convert_currency(amount, currency, "RUB")
         logger.info(f"Результат конвертации: {result} RUB")
