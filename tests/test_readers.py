@@ -2,7 +2,7 @@ import pytest
 import pandas as pd
 import tempfile
 from pathlib import Path
-from src.file_readers import read_csv, read_xlsx
+from src.readers import read_csv, read_xlsx
 
 
 class TestReadCSV:
