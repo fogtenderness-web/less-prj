@@ -1,7 +1,7 @@
 import json
 import logging
 from pathlib import Path
-from typing import List, Dict, Any
+from typing import Any, Dict, List
 
 # Настройка логгера
 log_dir = Path(__file__).parent.parent / "logs"

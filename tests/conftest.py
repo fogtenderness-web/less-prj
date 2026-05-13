@@ -6,8 +6,9 @@ conftest.py - централизованное хранилище фикстур
 -generators.py
 """
 
-import pytest
 import os
+
+import pytest
 
 # ========================
 # processing.py

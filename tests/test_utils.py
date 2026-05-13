@@ -1,9 +1,11 @@
-import pytest
 import json
 import tempfile
 from pathlib import Path
 from unittest.mock import patch
-from src.utils import load_transactions, get_transaction_amount_in_rub
+
+import pytest
+
+from src.utils import get_transaction_amount_in_rub, load_transactions
 
 
 class TestLoadTransactions:

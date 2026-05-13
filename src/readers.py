@@ -1,6 +1,7 @@
 import logging
 from pathlib import Path
-from typing import List, Dict, Any
+from typing import Any, Dict, List
+
 import pandas as pd
 
 # Настройка логгера
@@ -21,7 +22,9 @@ logger.addHandler(console_handler)
 def read_csv(file_path: str) -> List[Dict[str, Any]]:
     """
     Читает CSV-файл и возвращает список словарей.
-    При ошибках возвращает пустой список.
+    Пустые ячейки заменяются на None. При любых
+    ошибках (отсутствие файла, пустой файл, некорректный CSV) возвращается
+    пустой список, а ошибка логируется.
     """
     path = Path(file_path)
     logger.info(f"Чтение CSV: {path}")
@@ -46,7 +49,9 @@ def read_csv(file_path: str) -> List[Dict[str, Any]]:
 def read_xlsx(file_path: str) -> List[Dict[str, Any]]:
     """
     Читает XLSX-файл и возвращает список словарей.
-    При ошибках возвращает пустой список.
+    Пустые ячейки преобразуются в None. При любых
+    ошибках (файл не найден, пустой файл, повреждённый Excel) возвращается
+    пустой список, ошибка логируется.
     """
     path = Path(file_path)
     logger.info(f"Чтение XLSX: {path}")
