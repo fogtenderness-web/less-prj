@@ -1,7 +1,8 @@
 import pytest
 
 from src.masks import get_mask_account, get_mask_card_number
-from src.processing import filter_by_state, sort_by_date
+from src.processing import (count_operations_by_category, filter_by_state,
+                            search_transactions, sort_by_date)
 from src.widget import get_date, mask_account_card
 
 # ========================
@@ -77,6 +78,7 @@ class TestProcessing:
         result = sort_by_date(empty_list)
         assert result == []
 
+
 class TestSearchTransactions:
     @pytest.fixture
     def sample_txs(self):
@@ -120,6 +122,7 @@ class TestSearchTransactions:
         result = search_transactions(sample_txs, "вклад")
         assert len(result) == 1
         assert result[0]["id"] == 3
+
 
 class TestCountOperationsByCategory:
     @pytest.fixture

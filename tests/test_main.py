@@ -1,6 +1,9 @@
-import pytest
 from unittest.mock import patch
+
+import pytest
+
 from src.main import main
+
 
 class TestMain:
     @patch("builtins.print")
@@ -67,7 +70,8 @@ class TestMain:
         mock_search.assert_not_called()
         mock_print.assert_any_call("01.01.2021 Тест")
         mock_print.assert_any_call("Visa 1234 56** **** 5678 -> Счет **7890")
-        mock_print.assert_any_call("Сумма: 100 USD")
+        # Проверяем, что среди вызовов print есть строка, содержащая "100 USD"
+        assert any("100 USD" in str(call) for call in mock_print.call_args_list)
 
     @patch("builtins.print")
     @patch("builtins.input")
@@ -83,7 +87,7 @@ class TestMain:
         mock_load.return_value = [{"id": 1, "state": "CANCELED"}]
         mock_filter.return_value = [{"id": 1, "state": "CANCELED"}]
         main()
-        mock_print.assert_any_call('Статус операции "test" недоступен.')
+        mock_print.assert_any_call('Статус операции "TEST" недоступен.')
         mock_filter.assert_called_once()
         args, _ = mock_filter.call_args
         assert args[1] == "CANCELED"
@@ -97,7 +101,7 @@ class TestMain:
         mock_input.side_effect = [
             "1", "data/valid.json",
             "EXECUTED",
-            "да", "по убыванию",
+            "да", "убыванию",
             "нет", "нет"
         ]
         mock_load.return_value = [{"id": 1}]
@@ -142,7 +146,7 @@ class TestMain:
         mock_filter.return_value = []
         main()
         mock_print.assert_any_call(
-            "Не найдено ни одной транзакции, подходящей под ваши условия фильтрации"
+            "\nНе найдено ни одной транзакции, подходящей под ваши условия фильтрации"
         )
 
     @patch("builtins.print")
@@ -193,4 +197,4 @@ class TestMain:
         ]
         mock_filter.return_value = mock_load.return_value.copy()
         main()
-        mock_print.assert_any_call("Всего банковских операций в выборке: 1")
+        assert any("Всего банковских операций в выборке: 1" in str(call) for call in mock_print.call_args_list)

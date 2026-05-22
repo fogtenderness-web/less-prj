@@ -3,12 +3,12 @@
 """
 
 import sys
-from typing import List, Dict, Any
+from typing import Any, Dict, List
 
-from src.utils import load_transactions
+from src.processing import filter_by_state, search_transactions, sort_by_date
 from src.readers import read_csv, read_xlsx
-from src.processing import filter_by_state, sort_by_date, search_transactions
-from src.widget import mask_account_card, get_date
+from src.utils import load_transactions
+from src.widget import get_date, mask_account_card
 
 
 def main() -> None:
@@ -74,7 +74,8 @@ def main() -> None:
         ]
 
     # --- Фильтр по слову в описании ---
-    word_filter = input("\nОтфильтровать список транзакций по определенному слову в описании? Да/Нет: ").strip().lower()
+    word_filter = input(
+        "\nОтфильтровать список транзакций по определенному слову в описании? Да/Нет: ").strip().lower()
     if word_filter in ["да", "yes", "y", "д"]:
         word = input("Введите слово для поиска: ").strip()
         if word:
