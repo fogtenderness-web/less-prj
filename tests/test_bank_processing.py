@@ -77,6 +77,49 @@ class TestProcessing:
         result = sort_by_date(empty_list)
         assert result == []
 
+class TestSearchTransactions:
+    @pytest.fixture
+    def sample_txs(self):
+        return [
+            {"id": 1, "description": "Перевод организации"},
+            {"id": 2, "description": "Перевод со счета на счет"},
+            {"id": 3, "description": "Открытие вклада"},
+            {"id": 4, "description": "Оплата услуг"},
+            {"id": 5, "description": None},
+            {"id": 6},  # без ключа description
+        ]
+
+    def test_search_found(self, sample_txs):
+        result = search_transactions(sample_txs, "перевод")
+        assert len(result) == 2
+        assert result[0]["id"] == 1
+        assert result[1]["id"] == 2
+
+    def test_search_case_insensitive(self, sample_txs):
+        result = search_transactions(sample_txs, "ПЕРЕВОД")
+        assert len(result) == 2
+
+    def test_search_not_found(self, sample_txs):
+        result = search_transactions(sample_txs, "карта")
+        assert result == []
+
+    def test_empty_search_string(self, sample_txs):
+        result = search_transactions(sample_txs, "")
+        assert result == []
+
+    def test_search_with_regex_special_chars(self):
+        txs = [
+            {"id": 1, "description": "Перевод (организация)"},
+            {"id": 2, "description": "Перевод [срочный]"},
+        ]
+        result = search_transactions(txs, "(организация)")
+        assert len(result) == 1
+        assert result[0]["id"] == 1
+
+    def test_description_missing(self, sample_txs):
+        result = search_transactions(sample_txs, "вклад")
+        assert len(result) == 1
+        assert result[0]["id"] == 3
 
 # ========================
 # Тесты для masks.py
