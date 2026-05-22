@@ -38,3 +38,21 @@ def sort_by_date(
         return datetime.fromisoformat(date_str)
 
     return sorted(data, key=lambda item: parse_date(item["date"]), reverse=reverse)
+
+
+def search_transactions(transactions: List[Dict[str, Any]], search_string: str) -> List[Dict[str, Any]]:
+    """
+    Выполняет поиск транзакций по описанию с использованием регулярного выражения.
+
+    Поиск регистронезависимый. Если строка поиска содержит специальные символы регулярных выражений,
+    они экранируются с помощью re.escape, чтобы искать буквальное вхождение.
+    """
+    if not search_string:
+        return []
+    pattern = re.compile(re.escape(search_string), re.IGNORECASE)
+    result = []
+    for tx in transactions:
+        description = tx.get("description")
+        if description and pattern.search(description):
+            result.append(tx)
+    return result
