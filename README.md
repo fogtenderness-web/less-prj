@@ -10,6 +10,7 @@
 
 - **`filter_by_state(data, state='EXECUTED')`** — фильтрация по статусу
 - **`sort_by_date(data, reverse=True)`** — сортировка по дате (от новых к старым)
+- **`search_transactions(transactions, search_string)`** — поиск транзакций по описанию (регистронезависимый, поддерживает специальные символы regex).
 
 ### `masks.py` — маскировка номеров
 - **`get_mask_card_number(card_number)`** — маскировка карты: `1234 56** **** 5678`
