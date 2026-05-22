@@ -1,6 +1,6 @@
 import pytest
 from unittest.mock import patch, MagicMock
-from main import main
+from src.main import main
 
 
 class TestMain:
