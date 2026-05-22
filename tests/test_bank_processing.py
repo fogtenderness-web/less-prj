@@ -121,6 +121,46 @@ class TestSearchTransactions:
         assert len(result) == 1
         assert result[0]["id"] == 3
 
+class TestCountOperationsByCategory:
+    @pytest.fixture
+    def sample_txs(self):
+        return [
+            {"id": 1, "description": "Перевод организации"},
+            {"id": 2, "description": "Перевод со счета на счет"},
+            {"id": 3, "description": "Открытие вклада"},
+            {"id": 4, "description": "Оплата услуг переводом"},
+            {"id": 5, "description": None},
+            {"id": 6},
+        ]
+
+    def test_multiple_matches(self, sample_txs):
+        categories = ["перевод", "вклад", "услуги"]
+        result = count_operations_by_category(sample_txs, categories)
+        assert result == {"перевод": 3, "вклад": 1, "услуги": 1}
+
+    def test_case_insensitive(self, sample_txs):
+        categories = ["ПЕРЕВОД", "ВКЛАД"]
+        result = count_operations_by_category(sample_txs, categories)
+        assert result == {"ПЕРЕВОД": 3, "ВКЛАД": 1}
+
+    def test_no_matches(self, sample_txs):
+        categories = ["кредит", "ипотека"]
+        result = count_operations_by_category(sample_txs, categories)
+        assert result == {"кредит": 0, "ипотека": 0}
+
+    def test_empty_transactions(self):
+        result = count_operations_by_category([], ["перевод"])
+        assert result == {"перевод": 0}
+
+    def test_empty_categories(self, sample_txs):
+        result = count_operations_by_category(sample_txs, [])
+        assert result == {}
+
+    def test_partial_word_match(self):
+        tx = [{"id": 1, "description": "переводчик"}]
+        result = count_operations_by_category(tx, ["перевод"])
+        # Считаем, что вхождение подстроки "перевод" есть
+        assert result["перевод"] == 1
 # ========================
 # Тесты для masks.py
 # ========================
